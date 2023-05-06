@@ -1,0 +1,120 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import BookingCard from "./BookingCard";
+import FlightBookingCard from "./FlightBookingCard";
+import Layout from "./Layout";
+
+function Profile() {
+  const [user, setUser] = useState({});
+  const [bookings, setBookings] = useState([]);
+  const [flightBooking, setFlightBooking] = useState([]);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    if (userData && userData.id) {
+      setUser(userData);
+      fetchBookings(userData.id);
+      fetchflight(userData.id); // Fetch flight bookings with the correct userId
+    }
+  }, []);
+
+  const fetchBookings = async (userId) => {
+    try {
+      const response = await axios.get(`/api/bookings?user=${user.id}`);
+      setBookings(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
+    }
+  };
+
+  const fetchflight = async (userId) => {
+    try {
+      const response = await axios.get(`/api/flight/bookings?userId=${userId}`);
+      setFlightBooking(response.data.data);
+      console.log(response.data.data);
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
+    }
+  };
+
+  return (
+    <Layout>
+      <div className="bg-gray-100 min-h-screen">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="py-12">
+            <div className="max-w-3xl mx-auto">
+              <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+              <div className="mt-6 space-y-6">
+                <div className="bg-white shadow  sm:rounded-lg">
+                  <div className="px-4 py-5 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      Personal Information
+                    </h3>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      Basic user information.
+                    </p>
+                  </div>
+                  <div className="border-t border-gray-200">
+                    <dl>
+                      <div className="px-4 py-5 grid grid-cols-3 gap-4 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Username
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 col-span-2">
+                          {user.username}
+                        </dd>
+                      </div>
+                      <div className="px-4 py-5 grid grid-cols-3 gap-4 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">
+                          Email address
+                        </dt>
+                        <dd className="mt-1 text-sm text-gray-900 col-span-2">
+                          {user.email}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+
+                <div className="bg-white shadow  sm:rounded-lg">
+                  <div className="px-4 py-5 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      Bookings
+                    </h3>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      A list of all your bookings.
+                    </p>
+                  </div>
+                  <div className="border-t border-gray-200">
+                    {bookings?.map((booking) => (
+                      <BookingCard key={booking._id} booking={booking} />
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-white shadow  sm:rounded-lg">
+                  <div className="px-4 py-5 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      Flight Bookings
+                    </h3>
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      A list of all your flight bookings.
+                    </p>
+                  </div>
+                  <div className="border-t border-gray-200">
+                    {flightBooking?.map((flight) => (
+                      <FlightBookingCard key={flight._id} booking={flight} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Layout>
+  );
+}
+
+export default Profile;

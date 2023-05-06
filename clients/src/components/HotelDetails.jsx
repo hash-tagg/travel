@@ -1,0 +1,72 @@
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import BookingForm from "./BookingForm";
+import Layout from "./Layout";
+
+import sample from '../images/sample.jpg'
+
+function HotelDetails() {
+  const { id } = useParams();
+  console.log("id",id);
+  const [hotel, setHotel] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState('');
+
+  // Fetch hotel data when the component mounts
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`/api/hotels/${id}`)
+      .then((response) => {
+        setHotel(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoading(false);
+      });
+  }, [id]);
+
+  // Get user ID from localStorage when the component mounts
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(storedUser);
+    }
+  }, []);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!hotel) {
+    return <p>Hotel not found.</p>;
+  }
+
+  return (
+    <Layout>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-2 mb-4">
+        <h1 className="text-4xl font-bold mb-4">{hotel.name}</h1>
+        <img
+          className="w-full rounded-lg shadow-md mb-8"
+          src={sample}
+          alt={hotel.name}
+        />
+        <div className="flex justify-between mb-4">
+          <div>
+            <p className="text-lg font-bold">{hotel.location}</p>
+            <p className="text-gray-600">{hotel.description}</p>
+          </div>
+          <div>
+            <p className="text-3xl font-bold">${hotel.price}</p>
+            <p className="text-gray-600">per night</p>
+          </div>
+        </div>
+        {user && <BookingForm hotel={id} />}
+      </div>
+    </Layout>
+  );
+}
+
+export default HotelDetails;
