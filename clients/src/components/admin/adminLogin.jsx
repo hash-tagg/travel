@@ -55,7 +55,7 @@ function AdminLogin() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.2 }}
         >
           <h2 className="text-center text-2xl font-bold mb-6">Log In</h2>
           <form onSubmit={handleSubmit}>

@@ -6,10 +6,10 @@ const DestinationCard = ({ image, title }) => {
     hidden: { opacity: 0, y: -50 },
     visible: { opacity: 1, y: 0 },
     hover: {
-      scale: 1.5,
+      scale: 1.1,
       transition: {
         yoyo: Infinity,
-        duration: 2,
+        duration: 0.2,
       },
     },
   };
