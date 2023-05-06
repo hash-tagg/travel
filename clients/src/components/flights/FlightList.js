@@ -20,10 +20,11 @@ const FlightList = () => {
     fetchFlights();
   }, []);
 
-  const handleBookNow = (flightId) => {
+  const handleBookNow = (flightId , flightPrice) => {
     const selectedFlight = flights.find((flight) => flight._id === flightId);
-    navigate(`/booking/${flightId}`, { state: selectedFlight });
+    navigate(`/booking/${flightId}`, { state: { ...selectedFlight, flightPrice } });
   };
+  
 
   return (
     <Layout>
@@ -57,7 +58,7 @@ const FlightList = () => {
                 <div className="font-medium">${flight.price}</div>
                 <button
                   className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
-                  onClick={() => handleBookNow(flight._id)}
+                  onClick={() => handleBookNow(flight._id , flight.price)}
                 >
                   Book now
                 </button>

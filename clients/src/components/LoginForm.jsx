@@ -36,7 +36,6 @@ function LoginForm() {
           }
           localStorage.setItem("token", token);
           
-          // Check if user is an admin
           if (user && user.isAdmin) {
             navigate("/admin");
           } else {
@@ -46,6 +45,7 @@ function LoginForm() {
       })
       .catch((error) => {
         console.log(error);
+        alert("Some thing went wrong");
       });
   };
   

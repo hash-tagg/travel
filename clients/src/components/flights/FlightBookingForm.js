@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
 import Layout from "../Layout";
 import ConfirmationPage from "./ConfirmationPage";
 
 const BookingForm = () => {
   const { flightId } = useParams();
+  const location = useLocation();
+  const flightPrice = location.state.flightPrice;
   const user = JSON.parse(localStorage.getItem("user"));
   const userId = user?.id;
 
@@ -17,9 +19,16 @@ const BookingForm = () => {
     address: "",
     flightId,
     passengers: 1,
-    totalPrice: 0,
+    totalPrice: flightPrice,
     userId,
   });
+
+  useEffect(() => {
+    setBookingInfo((prevState) => ({
+      ...prevState,
+      totalPrice: flightPrice * prevState.passengers,
+    }));
+  }, [bookingInfo.passengers]);
 
   const [isBookingSuccessful, setIsBookingSuccessful] = useState(false);
 
@@ -34,7 +43,15 @@ const BookingForm = () => {
     event.preventDefault();
 
     try {
-      const { firstName, lastName, email, mobileNo, address, passengers, totalPrice } = bookingInfo;
+      const {
+        firstName,
+        lastName,
+        email,
+        mobileNo,
+        address,
+        passengers,
+        totalPrice,
+      } = bookingInfo;
 
       const response = await axios.post("/api/flight/bookings", {
         flightId,
@@ -47,11 +64,10 @@ const BookingForm = () => {
         totalPrice,
         userId,
       });
-
+      alert("Success");
       console.log(response.data);
 
       setIsBookingSuccessful(true);
-
     } catch (error) {
       console.error(error);
     }
@@ -60,7 +76,6 @@ const BookingForm = () => {
   if (isBookingSuccessful) {
     return <ConfirmationPage bookingInfo={bookingInfo} />;
   }
-  
 
   return (
     <Layout>
@@ -184,7 +199,7 @@ const BookingForm = () => {
               type="number"
               value={bookingInfo.totalPrice}
               onChange={handleChange}
-              required
+              disabled
             />
           </div>
           <div className="mb-4">
