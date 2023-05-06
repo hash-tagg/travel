@@ -1,6 +1,5 @@
 import React from "react";
 
-import testImage from "../images/sample.jpg";
 import { Link,  useNavigate } from "react-router-dom";
 
 function HotelCard({ hotel }) {
@@ -15,7 +14,7 @@ function HotelCard({ hotel }) {
       <Link to={`/hotels/${hotel._id}`}>
         <img
           className="w-full h-64 object-cover object-center"
-          src={testImage}
+          src={hotel.images[0]}
           alt={hotel.name}
         />
       </Link>
