@@ -16,6 +16,7 @@ import ViewPage from "./components/ViewPage";
 
 import AdminH from "./components/admin/AdminH";
 import AdminHotels from "./components/admin/AdminHotels";
+import FlightsAdmin from "./components/admin/FlightsAdmin";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
 
         <Route path="/admin" element={<AdminH />} />
         <Route path="/admin/hotels" element={<AdminHotels />} />
+        <Route path="/admin/flights" element={<FlightsAdmin />} />
 
 
 

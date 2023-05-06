@@ -1,18 +1,24 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const FlightFilters = ({ onApplyFilters }) => {
-  const [departureCity, setDepartureCity] = useState('');
-  const [arrivalCity, setArrivalCity] = useState('');
-  const [departureDate, setDepartureDate] = useState('');
-  const [returnDate, setReturnDate] = useState('');
+  const [departureCity, setDepartureCity] = useState("");
+  const [arrivalCity, setArrivalCity] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [priceRange, setPriceRange] = useState([0, 1000]);
 
   const handleApplyFilters = () => {
     onApplyFilters({
       departureCity,
       arrivalCity,
       departureDate,
-      returnDate
+      returnDate,
+      priceRange,
     });
+  };
+
+  const handlePriceRangeChange = (event, newValue) => {
+    setPriceRange(newValue);
   };
 
   return (
@@ -54,6 +60,7 @@ const FlightFilters = ({ onApplyFilters }) => {
           className="w-full p-2 border rounded-md"
         />
       </div>
+
       <button
         className="w-full py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
         onClick={handleApplyFilters}

@@ -28,6 +28,35 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+  try {
+    const { flightNumber, airline, departureAirport, departureCity, departureCountry, departureDate, arrivalAirport, arrivalCity, arrivalCountry, arrivalDate, price } = req.body;
+
+    const booking = new FlightBooking({
+      flight: {
+        flightNumber,
+        airline,
+        departureAirport,
+        departureCity,
+        departureCountry,
+        departureDate,
+        arrivalAirport,
+        arrivalCity,
+        arrivalCountry,
+        arrivalDate,
+        price
+      },
+      user: req.user.id
+    });
+
+    await booking.save();
+    res.json({ success: true, data: booking });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
 // Update a flight booking
 router.put('/:id', async (req, res) => {
   try {
@@ -46,6 +75,7 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ success: false, error: 'Server error' });
   }
 });
+
 
 // Delete a flight booking
 router.delete('/:id', async (req, res) => {
