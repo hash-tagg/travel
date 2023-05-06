@@ -54,6 +54,13 @@ const FlightList = () => {
                 {flight.departureCity} ({flight.departureAirport}) to{" "}
                 {flight.arrivalCity} ({flight.arrivalAirport})
               </p>
+              <p className="mt-2">
+                      Departure: {new Date(flight.departureDate).toLocaleString()}
+                    </p>
+                    <p className="mt-2">
+                    
+                    ArrivalDate: {new Date(flight.arrivalDate).toLocaleString()}
+                </p>
               <div className="mt-4 flex justify-between items-center">
                 <div className="font-medium">${flight.price}</div>
                 <button
