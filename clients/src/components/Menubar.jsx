@@ -1,9 +1,9 @@
 import React from "react";
-import { FaPlane, FaHotel, FaCar, FaTrain } from "react-icons/fa";
+import { FaPlane, FaHotel, FaCar, FaTrain, FaHome} from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 function MenuBar() {
-  return (
+  return(
     <nav className="bg-white pb-6 shadow-xl pt-2">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ul className="flex justify-evenly w-full h-8">
@@ -29,6 +29,12 @@ function MenuBar() {
             <Link to="/trains" className="flex flex-col items-center text-gray-700">
               <FaTrain className="text-2xl" />
               <span>Trains</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/holidays" className="flex flex-col items-center text-gray-700">
+              <FaHome className="text-2xl" />
+              <span>Holiday Packages</span>
             </Link>
           </li>
         </ul>

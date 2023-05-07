@@ -9,7 +9,7 @@ const DestinationCard = ({ image, title }) => {
       scale: 1.1,
       transition: {
         yoyo: Infinity,
-        duration: 2,
+        duration: 0.2,
       },
     },
   };

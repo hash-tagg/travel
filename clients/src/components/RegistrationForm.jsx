@@ -55,7 +55,7 @@ function RegistrationForm({ setIsLoggedIn }) {
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-        />
+        />   
         {formErrors.email && <p className="text-red-500 text-sm mt-1">{formErrors.email.msg}</p>}
       </div>
       <div className="mb-4">
