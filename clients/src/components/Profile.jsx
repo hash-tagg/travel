@@ -4,8 +4,10 @@ import BookingCard from "./BookingCard";
 import FlightBookingCard from "./FlightBookingCard";
 import CarBookingCard from "./CarBookingCard";
 import Layout from "./Layout";
+import { ThreeDots } from "react-loader-spinner";
 
 function Profile() {
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
   const [bookings, setBookings] = useState([]);
   const [flightBooking, setFlightBooking] = useState([]);
@@ -18,7 +20,9 @@ function Profile() {
         const response = await axios.get(`/api/bookings?user=${user.id}`);
         setBookings(response.data);
         // console.log(response.data);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.error("Error fetching bookings:", error);
       }
     };
@@ -52,6 +56,15 @@ function Profile() {
       fetchCarBookings(userData.id);
     }
   }, [user.id]);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots  color="#2d3748" height={80} width={80} />
+      </div>
+    );
+  }
+
 
   return (
     <Layout>

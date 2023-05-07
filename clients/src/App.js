@@ -18,6 +18,7 @@ import AdminH from "./components/admin/AdminH";
 import AdminHotels from "./components/admin/AdminHotels";
 import FlightsAdmin from "./components/admin/FlightsAdmin";
 import CarsAdmin from "./components/admin/CarsAdmin";
+import TrainsAdmin from "./components/admin/TrainsAdmin";
 
 import Trains from "./components/trains/Trains";
 import Cars from "./components/cars/Cars"
@@ -44,6 +45,7 @@ function App() {
         <Route path="/admin/hotels" element={<AdminHotels />} />
         <Route path="/admin/flights" element={<FlightsAdmin />} />
         <Route path="/admin/cars" element={<CarsAdmin />} />
+        <Route path="/admin/trains" element={<TrainsAdmin />} />
 
         <Route path="/trains" element={<Trains/>} />
         <Route path="/cars" element={<Cars/>} />

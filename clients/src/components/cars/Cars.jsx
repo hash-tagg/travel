@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CarsBooking from "./CarsBooking";
 import Layout from "../Layout";
+import {ThreeDots} from "react-loader-spinner";
 
 const Cars = () => {
   const [cars, setCars] = useState([]);
@@ -32,7 +33,11 @@ const Cars = () => {
   
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots  color="#2d3748" height={80} width={80} />
+      </div>
+    );
   }
 
   return (

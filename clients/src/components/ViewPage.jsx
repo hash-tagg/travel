@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Layout from "./Layout";
 import DestinationCard from "./DestinationCard";
+import { ThreeDots } from "react-loader-spinner";
+import Skeleton from "react-loading-skeleton";
 
 import img1 from "../images/carousel1.jpg";
 import img2 from "../images/carousel2.jpg";
@@ -14,6 +16,13 @@ import feature3 from "../images/feature3.jpg";
 import feature4 from "../images/feature4.jpg";
 
 const ViewPage = () => {
+  const [loading, setLoading] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoaded = () => {
+    setImageLoaded(true);
+  };
+
   const sampleDestinations = [
     {
       title: "Paris",
@@ -52,6 +61,20 @@ const ViewPage = () => {
     },
   ];
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots color="#2d3748" height={80} width={80} />
+      </div>
+    );
+  }
+
   return (
     <Layout>
       <div className="bg-white min-h-screen">
@@ -66,10 +89,18 @@ const ViewPage = () => {
               className="overflow-hidden"
             >
               <div>
+                {!imageLoaded && (
+                  <Skeleton
+                    width="100%"
+                    height={200}
+                    style={{ borderRadius: "10px" }}
+                  />
+                )}
                 <img
                   src={img1}
                   alt="carousel-img-1"
                   className="w-full h-[350px] object-cover"
+                  onLoad={handleImageLoaded}
                 />
                 <p className="legend">
                   The Torus Effect: Harnessing the Power of the Donut-Shaped

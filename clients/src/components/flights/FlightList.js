@@ -2,18 +2,22 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import Layout from "../Layout";
+import {ThreeDots} from "react-loader-spinner";
 
 const FlightList = () => {
   const [flights, setFlights] = useState([]);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchFlights = async () => {
       try {
         const response = await axios.get("/api/flights");
         setFlights(response.data);
+        setLoading(false);
       } catch (error) {
         console.error(error);
+        setLoading(false);
       }
     };
 
@@ -25,6 +29,13 @@ const FlightList = () => {
     navigate(`/booking/${flightId}`, { state: { ...selectedFlight, flightPrice } });
   };
   
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots  color="#2d3748" height={80} width={80} />
+      </div>
+    );
+  }
 
   return (
     <Layout>
