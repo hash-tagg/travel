@@ -2,41 +2,69 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import BookingCard from "./BookingCard";
 import FlightBookingCard from "./FlightBookingCard";
+import CarBookingCard from "./CarBookingCard";
 import Layout from "./Layout";
+import { ThreeDots } from "react-loader-spinner";
 
 function Profile() {
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState({});
   const [bookings, setBookings] = useState([]);
   const [flightBooking, setFlightBooking] = useState([]);
+  const [carBookings, setCarBookings] = useState([]);
+
 
   useEffect(() => {
+    const fetchBookings = async (userId) => {
+      try {
+        const response = await axios.get(`/api/bookings?user=${user.id}`);
+        setBookings(response.data);
+        // console.log(response.data);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        console.error("Error fetching bookings:", error);
+      }
+    };
+
+    const fetchflight = async (userId) => {
+      try {
+        const response = await axios.get(
+          `/api/flight/bookings?userId=${userId}`
+        );
+        setFlightBooking(response.data.data);
+        // console.log(response.data.data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
+
+    const fetchCarBookings = async (userId) => {
+      try {
+        const response = await axios.get(`/api/carBookings?user=${user.id}`);
+        setCarBookings(response.data);
+        // console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching bookings:", error);
+      }
+    };
     const userData = JSON.parse(localStorage.getItem("user"));
     if (userData && userData.id) {
       setUser(userData);
       fetchBookings(userData.id);
-      fetchflight(userData.id); // Fetch flight bookings with the correct userId
+      fetchflight(userData.id);
+      fetchCarBookings(userData.id);
     }
-  }, []);
+  }, [user.id]);
 
-  const fetchBookings = async (userId) => {
-    try {
-      const response = await axios.get(`/api/bookings?user=${user.id}`);
-      setBookings(response.data);
-      console.log(response.data);
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-    }
-  };
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots  color="#2d3748" height={80} width={80} />
+      </div>
+    );
+  }
 
-  const fetchflight = async (userId) => {
-    try {
-      const response = await axios.get(`/api/flight/bookings?userId=${userId}`);
-      setFlightBooking(response.data.data);
-      console.log(response.data.data);
-    } catch (error) {
-      console.error("Error fetching bookings:", error);
-    }
-  };
 
   return (
     <Layout>
@@ -106,6 +134,24 @@ function Profile() {
                     {flightBooking?.map((flight) => (
                       <FlightBookingCard key={flight._id} booking={flight} />
                     ))}
+                  </div>
+                </div>
+
+                <div className="bg-white shadow  sm:rounded-lg">
+                  <div className="px-4 py-5 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">
+                      Car Bookings
+                    </h3>
+
+                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
+                      A list of all your car bookings.
+                    </p>
+
+                    <div className="border-t border-gray-200">
+                    {carBookings?.map((car) => (
+                        <CarBookingCard key={car._id} booking={car} />
+                        ))}
+                        </div>
                   </div>
                 </div>
               </div>
