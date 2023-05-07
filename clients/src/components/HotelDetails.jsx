@@ -8,7 +8,6 @@ import sample from '../images/sample.jpg'
 
 function HotelDetails() {
   const { id } = useParams();
-  console.log("id",id);
   const [hotel, setHotel] = useState(null);
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState('');
@@ -20,6 +19,7 @@ function HotelDetails() {
       .get(`/api/hotels/${id}`)
       .then((response) => {
         setHotel(response.data);
+        console.log(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -63,7 +63,7 @@ function HotelDetails() {
             <p className="text-gray-600">per night</p>
           </div>
         </div>
-        {user && <BookingForm hotel={id} />}
+        {user && <BookingForm hotel={id} user={user} />}
       </div>
     </Layout>
   );

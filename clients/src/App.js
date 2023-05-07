@@ -14,8 +14,9 @@ import BookingForm from "./components/flights/FlightBookingForm";
 import ConfirmationPage from "./components/flights/ConfirmationPage";
 import ViewPage from "./components/ViewPage";
 
-import AdminLogin from "./components/admin/adminLogin";
 import AdminH from "./components/admin/AdminH";
+import AdminHotels from "./components/admin/AdminHotels";
+import FlightsAdmin from "./components/admin/FlightsAdmin";
 
 function App() {
   return (
@@ -33,8 +34,12 @@ function App() {
         <Route path="/booking/:flightId" element={<BookingForm />} />
         <Route path="/confirmation" element={<ConfirmationPage />} />
 
-        <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<AdminH />} />
+        <Route path="/admin/hotels" element={<AdminHotels />} />
+        <Route path="/admin/flights" element={<FlightsAdmin />} />
+
+
+
       </Routes>
     </div>
   );

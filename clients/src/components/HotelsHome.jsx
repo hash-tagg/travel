@@ -13,6 +13,7 @@ function Search() {
     axios
       .get("/api/hotels")
       .then((response) => {
+        console.log(response.data);
         setHotels(response.data);
         setLoading(false);
       }) 

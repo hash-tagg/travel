@@ -2,11 +2,40 @@ const express = require('express');
 const router = express.Router();
 const FlightBooking = require('../models/flightBooking');
 
-// Get all flight bookings for a user
+
+router.post('/', async (req, res) => {
+  try {
+    const { flightId, userId, passengers, totalPrice, firstName, lastName, email, mobileNo, address } = req.body;
+
+    // Create a new flight booking
+    const booking = new FlightBooking({
+      flight: flightId,
+      user: userId,
+      passengers,
+      totalPrice,
+      firstName,
+      lastName,
+      email,
+      mobileNo,
+      address
+    });
+
+    // Save the booking to the database
+    await booking.save();
+
+    res.status(201).json({ success: true, data: booking });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
+
+
+
+// Get all flight bookings
 router.get('/', async (req, res) => {
   try {
-    const { userId } = req.query;
-    const bookings = await FlightBooking.find({ user: userId }).populate('flight user');
+    const bookings = await FlightBooking.find().populate('flight user');
     res.json({ success: true, data: bookings });
   } catch (error) {
     console.error(error);
@@ -61,8 +90,17 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-
-
+// Get flight bookings by user
+router.get('/user/:id', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const bookings = await FlightBooking.find({ user: userId }).populate('flight user');
+    res.json({ success: true, data: bookings });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+});
 
 
 module.exports = router;

@@ -30,19 +30,25 @@ function LoginForm() {
       .post("/api/users/login", formData)
       .then((response) => {
         if (response && response.data) {
-          console.log(response.data);
           const { token, user } = response.data;
           if (user) {
             localStorage.setItem("user", JSON.stringify(user));
           }
           localStorage.setItem("token", token);
-          navigate("/");
+          
+          if (user && user.isAdmin) {
+            navigate("/admin");
+          } else {
+            navigate("/");
+          }
         }
       })
       .catch((error) => {
         console.log(error);
+        alert("Some thing went wrong");
       });
   };
+  
 
   return (
     <Layout>
