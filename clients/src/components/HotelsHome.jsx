@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Layout from "./Layout";
 import HotelCard from "./HotelCard";
+import {ThreeDots} from "react-loader-spinner";
 
 function Search() {
+ 
   const [query, setQuery] = useState("");
   const [hotels, setHotels] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -22,6 +24,15 @@ function Search() {
         setLoading(false);
       });
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots  color="#2d3748" height={80} width={80} />
+      </div>
+    );
+  }
+
 
   return (
     <Layout>

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Layout from "../Layout";
+import {ThreeDots} from "react-loader-spinner";
 
 const Trains = () => {
   const [trains, setTrains] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchData, setSearchData] = useState({
     origin: "",
     destination: "",
@@ -17,7 +19,9 @@ const Trains = () => {
     try {
       const response = await axios.get("/api/trains");
       setTrains(response.data);
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.error("Error fetching trains:", error);
     }
   };
@@ -40,6 +44,15 @@ const Trains = () => {
     });
     setTrains(filteredTrains);
   };
+
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots  color="#2d3748" height={80} width={80} />
+      </div>
+    );
+  }
 
   return (
     <Layout>
