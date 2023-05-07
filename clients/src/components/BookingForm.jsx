@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const BookingForm = ({ hotel }) => {
-  console.log(hotel);
+  // console.log(hotel);
   const [guestName, setGuestName] = useState('');
   const [guestEmail, setGuestEmail] = useState('');
   const [checkInDate, setCheckInDate] = useState('');
@@ -10,6 +11,8 @@ const BookingForm = ({ hotel }) => {
   const [numGuests, setNumGuests] = useState('');
 
   const [user, setUser] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -29,13 +32,15 @@ const BookingForm = ({ hotel }) => {
       hotel,
       user: user.id,
     };
-    console.log('Booking data:', bookingData);
+    // console.log('Booking data:', bookingData);
 
     try {
       const response = await axios.post('/api/bookings', bookingData);
 
       if (response.status === 201) {
         console.log('Booking successful:', response.data);
+        alert('Booking successful!');
+        navigate("/profile");
         // Handle successful booking, e.g. show a success message or redirect
       }
     } catch (err) {

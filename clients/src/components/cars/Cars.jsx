@@ -1,48 +1,78 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import CarsBooking from "./CarsBooking";
 import Layout from "../Layout";
 
-function Trains() {
+const Cars = () => {
+  const [cars, setCars] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCar, setSelectedCar] = useState(null);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCars = async () => {
+      try {
+        const response = await axios.get("/api/cars");
+        setCars(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+        setLoading(false);
+      }
+    };
+
+    fetchCars();
+  }, []);
+
+  const handleBookNow = (car) => {
+    navigate("/cars/booking", { state: { car } });
+  };
+  
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Layout>
-    <div className="bg-gray-100">
-      {/* Hero section */}
-      <section className="bg-gray-800 py-32">
-        <div className="max-w-7xl mx-auto px-4">
-          <h1 className="text-5xl font-bold text-white mb-8">
-            Find your perfect train journey
-          </h1>
-          <form className="max-w-sm mx-auto">
-            <div className="flex items-center mb-4">
-              <label htmlFor="from" className="mr-4 text-white">
-                From:
-              </label>
-              <input
-                type="text"
-                id="from"
-                className="bg-gray-200 py-2 px-4 rounded-full w-full"
+      <div className="container mx-auto">
+        <h1 className="text-4xl font-bold my-6">Cars</h1>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {cars.map((car) => (
+            <div
+              key={car.licensePlate}
+              className="bg-white shadow-lg rounded-lg overflow-hidden p-4"
+            >
+              <img
+                className="w-full h-56 object-cover mb-4"
+                src={car.imageUrl}
+                alt={car.make + " " + car.model}
               />
-            </div>
-            <div className="flex items-center mb-4">
-              <label htmlFor="to" className="mr-4 text-white">
-                To:
-              </label>
-              <input
-                type="text"
-                id="to"
-                className="bg-gray-200 py-2 px-4 rounded-full w-full"
-              />
-            </div>
-            <div className="flex justify-center">
-              <button className="bg-blue-500 text-white py-2 px-8 rounded-full hover:bg-blue-600">
-                Search
+              <h2 className="text-2xl font-bold mb-2">
+                {car.make} {car.model}
+              </h2>
+              <p>Year: {car.year}</p>
+              <p>License Plate: {car.licensePlate}</p>
+              <p>Color: {car.color}</p>
+              <p>Category: {car.category}</p>
+              <p>Seats: {car.seats}</p>
+              <p>Price per day: ${car.pricePerDay}</p>
+              <p>Available: {car.available ? "Yes" : "No"}</p>
+              <button
+                className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-blue-700"
+                onClick={() => handleBookNow(car)}
+              >
+                Book Now
               </button>
             </div>
-          </form>
+          ))}
         </div>
-      </section>
-    </div>
+        {selectedCar && <CarsBooking car={selectedCar} />}
+      </div>
     </Layout>
   );
-}
+};
 
-export default Trains;
+export default Cars;

@@ -3,8 +3,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "./AdminLayout";
-import { Image, CloudinaryContext } from "cloudinary-react";
-import { AdvancedImage } from "@cloudinary/react";
+
 import { CloudinaryImage } from "@cloudinary/url-gen";
 import { fill } from "@cloudinary/url-gen/actions/resize";
 
@@ -28,6 +27,7 @@ const AdminHotels = () => {
   const fetchHotels = async () => {
     try {
       const response = await axios.get("/api/hotels");
+      console.log(response.data);
       setHotels(response.data);
     } catch (error) {
       console.error(error);
