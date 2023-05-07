@@ -1,11 +1,16 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../Layout";
 import feature1 from "../../images/feature1.jpg";
 import feature2 from "../../images/feature2.jpg";
 import feature3 from "../../images/feature3.jpg";
 import feature4 from "../../images/feature4.jpg";
 
+import {ThreeDots} from "react-loader-spinner";
+
 const HolidayPackages = () => {
+ 
+  const [loading, setLoading] = useState(true);
+
   const packages = [
     {
       id: 1,
@@ -61,6 +66,17 @@ const HolidayPackages = () => {
     },
   ];
 
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ThreeDots  color="#2d3748" height={80} width={80} />
+      </div>
+    );
+  }
   return (
     <Layout>
       <div className="bg-gray-100 py-8">
