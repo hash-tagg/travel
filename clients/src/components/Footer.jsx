@@ -37,9 +37,7 @@ function Footer() {
                 <li>
                     <a href="#" class="mr-4 hover:underline md:mr-6 ">Licensing</a>
                 </li>
-                <li>
-                  <Link to="/admin/login" className="text-red-600 hover:text-green-600">Admin Login</Link>
-                </li>
+                
             </ul>
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-red-700 lg:my-8" />

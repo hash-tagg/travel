@@ -18,6 +18,10 @@ import AdminH from "./components/admin/AdminH";
 import AdminHotels from "./components/admin/AdminHotels";
 import FlightsAdmin from "./components/admin/FlightsAdmin";
 
+import Trains from "./components/trains/Trains";
+import Cars from "./components/cars/Cars"
+import Hpackage from "./components/Hpackage/Hpackage"
+
 function App() {
   return (
     <div>
@@ -37,6 +41,10 @@ function App() {
         <Route path="/admin" element={<AdminH />} />
         <Route path="/admin/hotels" element={<AdminHotels />} />
         <Route path="/admin/flights" element={<FlightsAdmin />} />
+
+        <Route path="/trains" element={<Trains/>} />
+        <Route path="/cars" element={<Cars/>} />
+        <Route path="/holidays" element={<Hpackage/>} />
 
 
 
