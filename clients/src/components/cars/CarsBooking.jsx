@@ -56,7 +56,7 @@ const CarBooking = () => {
         <p>Color: {location.state.car.color}</p>
         <p>Category: {location.state.car.category}</p>
         <p>Seats: {location.state.car.seats}</p>
-        <p>Price per day: ${location.state.car.pricePerDay}</p>
+        <p>Price per day: ₹{location.state.car.pricePerDay}</p>
         <p>Available: {location.state.car.available ? "Yes" : "No"}</p>
 
         <form onSubmit={handleBooking}>

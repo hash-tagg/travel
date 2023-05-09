@@ -73,7 +73,7 @@ const FlightList = () => {
                     ArrivalDate: {new Date(flight.arrivalDate).toLocaleString()}
                 </p>
               <div className="mt-4 flex justify-between items-center">
-                <div className="font-medium">${flight.price}</div>
+                <div className="font-medium">₹{flight.price}</div>
                 <button
                   className="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
                   onClick={() => handleBookNow(flight._id , flight.price)}

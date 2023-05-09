@@ -25,7 +25,7 @@ function HotelCard({ hotel }) {
         <p className="font-bold mb-2">
           {hotel.price.toLocaleString("en-US", {
             style: "currency",
-            currency: "USD",
+            currency: "INR",
           })}
         </p>
         <button
