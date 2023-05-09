@@ -5,6 +5,7 @@ import Layout from "./Layout";
 import DestinationCard from "./DestinationCard";
 import { ThreeDots } from "react-loader-spinner";
 import Skeleton from "react-loading-skeleton";
+import { Link } from "react-router-dom";
 
 import img1 from "../images/carousel1.jpg";
 import img2 from "../images/carousel2.jpg";
@@ -25,47 +26,58 @@ const ViewPage = () => {
 
   const sampleDestinations = [
     {
-      title: "Paris",
+      title: "Agra",
       image: feature1,
+      link: "/agra",
     },
     {
-      title: "New York",
+      title: "Jaipur",
       image: feature2,
+      link: "/jaipur",
     },
     {
-      title: "Tokyo",
+      title: "Goa",
       image: feature3,
+      link: "/goa",
     },
     {
-      title: "Sydney",
+      title: "Kerala",
       image: feature4,
+      link: "/kerala",
     },
   ];
 
   const sampleTours = [
     {
-      title: "Tour in Paris",
-      image: feature4,
-    },
-    {
-      title: "Tour in New York",
-      image: feature1,
-    },
-    {
-      title: "Tour in Tokyo",
-      image: feature3,
-    },
-    {
-      title: "Tour in Sydney",
+      title: "Taj Mahal Tour",
       image: feature2,
+      link: "/agra",
+    },
+    {
+      title: "Jaipur City Tour",
+      image: feature3,
+      link: "/jaipur",
+    },
+    {
+      title: "Goa Beach Tour",
+      image: feature4,
+      link: "/goa",
+    },
+    {
+      title: "Kerala Backwaters Tour",
+      image: feature1,
+      link: "/kerala",
     },
   ];
 
   useEffect(() => {
+    setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   }, []);
+
+  
 
   if (loading) {
     return (
@@ -137,11 +149,12 @@ const ViewPage = () => {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {sampleDestinations.map((destination, index) => (
-                    <DestinationCard
-                      key={index}
-                      image={destination.image}
-                      title={destination.title}
-                    />
+                    <Link to={destination.link} key={index}>
+                      <DestinationCard
+                        image={destination.image}
+                        title={destination.title}
+                      />
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -151,11 +164,12 @@ const ViewPage = () => {
                 <h2 className="text-2xl font-bold mb-6">Featured Tours</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   {sampleTours.map((destination, index) => (
-                    <DestinationCard
-                      key={index}
-                      image={destination.image}
-                      title={destination.title}
-                    />
+                    <Link to={destination.link} key={index}>
+                      <DestinationCard
+                        image={destination.image}
+                        title={destination.title}
+                      />
+                    </Link>
                   ))}
                 </div>
               </div>

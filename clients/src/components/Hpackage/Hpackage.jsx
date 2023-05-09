@@ -106,9 +106,7 @@ const HolidayPackages = () => {
                 </ul>
                 <p className="text-gray-700 mb-2">{pkg.price}</p>
                 <p className="text-gray-700 mb-4">{`Rating: ${pkg.rating}`}</p>
-                <button className="bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                  Book Now
-                </button>
+               
               </div>
             ))}
           </div>
