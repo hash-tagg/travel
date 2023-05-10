@@ -21,9 +21,13 @@ import CarsAdmin from "./components/admin/CarsAdmin";
 import TrainsAdmin from "./components/admin/TrainsAdmin";
 
 import Trains from "./components/trains/Trains";
-import Cars from "./components/cars/Cars"
-import Hpackage from "./components/Hpackage/Hpackage"
+import Cars from "./components/cars/Cars";
+import Hpackage from "./components/Hpackage/Hpackage";
 import CarsBooking from "./components/cars/CarsBooking";
+import Agra from "./components/tourPlace/Agra";
+import Jaipur from "./components/tourPlace/Jaipur";
+import Goa from "./components/tourPlace/Goa";
+import Kerala from "./components/tourPlace/Kerala";
 
 function App() {
   return (
@@ -47,14 +51,16 @@ function App() {
         <Route path="/admin/cars" element={<CarsAdmin />} />
         <Route path="/admin/trains" element={<TrainsAdmin />} />
 
-        <Route path="/trains" element={<Trains/>} />
-        <Route path="/cars" element={<Cars/>} />
-        <Route path="/cars/booking" element={<CarsBooking/>} />
+        <Route path="/trains" element={<Trains />} />
+        <Route path="/cars" element={<Cars />} />
+        <Route path="/cars/booking" element={<CarsBooking />} />
 
-        <Route path="/holidays" element={<Hpackage/>} />
+        <Route path="/holidays" element={<Hpackage />} />
 
-
-
+        <Route path="/agra" element={<Agra />} />
+        <Route path="/jaipur" element={<Jaipur />} />
+        <Route path="/Goa" element={<Goa />} />
+        <Route path="/Kerala" element={<Kerala />} />
       </Routes>
     </div>
   );

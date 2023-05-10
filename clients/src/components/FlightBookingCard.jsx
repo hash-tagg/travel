@@ -42,7 +42,7 @@ const FlightBookingCard = ({ booking }) => {
         </p>
         <p>
           <span className="font-semibold">Total Price: </span>
-          {`$${totalPrice}`}
+          {`₹${totalPrice}`}
         </p>
       </div>
     </div>

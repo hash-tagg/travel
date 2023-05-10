@@ -58,7 +58,7 @@ function HotelDetails() {
             <p className="text-gray-600">{hotel.description}</p>
           </div>
           <div>
-            <p className="text-3xl font-bold">${hotel.price}</p>
+            <p className="text-3xl font-bold">₹{hotel.price}</p>
             <p className="text-gray-600">per night</p>
           </div>
         </div>

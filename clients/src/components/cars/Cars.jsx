@@ -64,7 +64,7 @@ const Cars = () => {
               <p>Color: {car.color}</p>
               <p>Category: {car.category}</p>
               <p>Seats: {car.seats}</p>
-              <p>Price per day: ${car.pricePerDay}</p>
+              <p>Price per day: ₹{car.pricePerDay}</p>
               <p>Available: {car.available ? "Yes" : "No"}</p>
               <button
                 className="bg-blue-500 text-white font-bold py-2 px-4 rounded mt-4 hover:bg-blue-700"

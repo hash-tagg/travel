@@ -12,9 +12,9 @@ const CarBookingCard = ({ booking } ) => {
       <p>License Plate: {booking.car.licensePlate}</p>
       <p>Rental Start: {new Date(booking.rentalStart).toLocaleDateString()}</p>
       <p>Rental End: {new Date(booking.rentalEnd).toLocaleDateString()}</p>
-      <p>Price Per Day: ${booking.pricePerDay.toFixed(2)}</p>
+      <p>Price Per Day: ₹{booking.pricePerDay.toFixed(2)}</p>
       <p>Total Days: {Math.ceil((new Date(booking.rentalEnd) - new Date(booking.rentalStart)) / (1000 * 60 * 60 * 24))}</p>
-      <p>Total Price: ${(booking.pricePerDay * Math.ceil((new Date(booking.rentalEnd) - new Date(booking.rentalStart)) / (1000 * 60 * 60 * 24))).toFixed(2)}</p>
+      <p>Total Price: ₹{(booking.pricePerDay * Math.ceil((new Date(booking.rentalEnd) - new Date(booking.rentalStart)) / (1000 * 60 * 60 * 24))).toFixed(2)}</p>
     </div>
   );
 };
