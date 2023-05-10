@@ -17,45 +17,43 @@ function Profile() {
   useEffect(() => {
     const fetchBookings = async (userId) => {
       try {
-        const response = await axios.get(`/api/bookings?user=${user.id}`);
+        const response = await axios.get(`/api/bookings?userId=${userId}`);
         setBookings(response.data);
-        // console.log(response.data);
         setLoading(false);
       } catch (error) {
         setLoading(false);
         console.error("Error fetching bookings:", error);
       }
     };
-
+  
     const fetchflight = async (userId) => {
       try {
-        const response = await axios.get(
-          `/api/flight/bookings?userId=${userId}`
-        );
+        const response = await axios.get(`/api/flight/bookings?userId=${userId}`);
         setFlightBooking(response.data.data);
-        // console.log(response.data.data);
       } catch (error) {
-        console.error("Error fetching bookings:", error);
+        console.error("Error fetching flight bookings:", error);
       }
     };
-
+  
     const fetchCarBookings = async (userId) => {
       try {
-        const response = await axios.get(`/api/carBookings?user=${user.id}`);
+        const response = await axios.get(`/api/carBookings?userId=${userId}`);
         setCarBookings(response.data);
-        // console.log(response.data);
       } catch (error) {
-        console.error("Error fetching bookings:", error);
+        console.error("Error fetching car bookings:", error);
       }
     };
+  
     const userData = JSON.parse(localStorage.getItem("user"));
+  
     if (userData && userData.id) {
       setUser(userData);
       fetchBookings(userData.id);
       fetchflight(userData.id);
       fetchCarBookings(userData.id);
+      console.log(userData.id);
     }
-  }, [user.id]);
+  }, []);
 
   if (loading) {
     return (
