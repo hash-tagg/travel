@@ -33,15 +33,48 @@ router.post('/', async (req, res) => {
 
 
 // Get all flight bookings
+// router.get('/', async (req, res) => {
+//   try {
+//     const userId = req.query.userId;
+//     console.log("Received userId: ", userId);
+
+//     // Find flight bookings related to the user
+//     const flightBookings = await FlightBooking.find({ user: userId });
+
+//     // If no bookings found, return a 404 status
+//     if (flightBookings.length === 0) {
+//       return res.status(404).json({ message: "No flight bookings found for this user." });
+//     }
+
+//     console.log("Found flight bookings: ", flightBookings);
+//     res.json(flightBookings);
+//   } catch (err) {
+//     console.error("Server error: ", err); // Important console log to identify errors
+//     res.status(500).json({ message: err.message });
+//   }
+// });
 router.get('/', async (req, res) => {
   try {
-    const bookings = await FlightBooking.find().populate('flight user');
-    res.json({ success: true, data: bookings });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, error: 'Server error' });
+    const userId = req.query.userId;
+    // console.log("Received userId: ", userId);
+
+    // Find flight bookings related to the user and populate the flight details
+    const flightBookings = await FlightBooking.find({ user: userId }).populate('flight');
+
+    // If no bookings found, return a 404 status
+    if (flightBookings.length === 0) {
+      return res.status(404).json({ message: "No flight bookings found for this user." });
+    }
+
+    // console.log("Found flight bookings: ", flightBookings);
+    res.json(flightBookings);
+  } catch (err) {
+    // console.error("Server error: ", err); // Important console log to identify errors
+    res.status(500).json({ message: err.message });
   }
 });
+
+
 
 // Get a single flight booking
 router.get('/:id', async (req, res) => {

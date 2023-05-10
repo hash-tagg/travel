@@ -29,7 +29,8 @@ function Profile() {
     const fetchflight = async (userId) => {
       try {
         const response = await axios.get(`/api/flight/bookings?userId=${userId}`);
-        setFlightBooking(response.data.data);
+        console.log(response.data);
+        setFlightBooking(response.data);
       } catch (error) {
         console.error("Error fetching flight bookings:", error);
       }
@@ -51,7 +52,7 @@ function Profile() {
       fetchBookings(userData.id);
       fetchflight(userData.id);
       fetchCarBookings(userData.id);
-      console.log(userData.id);
+      // console.log(userData.id);
     }
   }, []);
 
