@@ -4,7 +4,6 @@ import axios from "axios";
 import BookingForm from "./BookingForm";
 import Layout from "./Layout";
 
-import sample from '../images/sample.jpg'
 
 function HotelDetails() {
   const { id } = useParams();
@@ -50,7 +49,7 @@ function HotelDetails() {
         <h1 className="text-4xl font-bold mb-4">{hotel.name}</h1>
         <img
           className="w-full rounded-lg shadow-md mb-8"
-          src={sample}
+          src={hotel.images[0]}
           alt={hotel.name}
         />
         <div className="flex justify-between mb-4">

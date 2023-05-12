@@ -2,15 +2,20 @@ const express = require('express');
 const router = express.Router();
 const Booking = require('../models/Booking');
 
-// GET all bookings, including hotel information
-// const express = require('express');
-// const router = express.Router();
-// const Booking = require('./bookingModel'); // Replace with your booking model file path
-
-// Get all bookings
+// GET all bookings for a specific user
 router.get('/', async (req, res) => {
   try {
-    const bookings = await Booking.find();
+    // Extract user id from query parameters
+    const userId = req.query.userId;
+
+    // Find bookings related to the user
+    const bookings = await Booking.find({ user: userId });
+
+    // If no bookings found, return a 404 status
+    if (!bookings) {
+      return res.status(404).json({ message: "No bookings found for this user." });
+    }
+
     res.json(bookings);
   } catch (err) {
     res.status(500).json({ message: err.message });
